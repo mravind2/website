@@ -129,3 +129,23 @@ footer {
 footer p {
   margin: 0;
 }
+footer {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.social-media {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
+.social-media a {
+  margin-left: 20px;
+}
+
+.social-media img {
+  height: 40px;
+  width: 40px;
+}
