@@ -19,7 +19,7 @@
       <section>
         <div class="title">Contact us</div>
         <div class="form">
-          <form name="contact" class="form-control">
+          <form name="contact" class="form-control" action="" method="post" id="form">
             <label for="input-name" class="form-label">Name</label>
             <input
               type="text"
@@ -48,9 +48,8 @@
               rows="10"
               id="input-question"
             ></textarea>
-            <div class="">
-              <button class="send-form-btn">SEND</button>
-            </div>
+            <button type="submit" class="btn btn-primary" name="submit" value="Submit" id="submit_form">Submit</button>
+            <div class="response_msg"></div>
             <iframe
               src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d13321.019160223632!2d-111.934241!3d33.4166011!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x872b08c354f63449%3A0xf3f3495da6a199df!2sW.%20P.%20Carey%20School%20of%20Business%20-%20Arizona%20State%20University!5e0!3m2!1sen!2sus!4v1668606973922!5m2!1sen!2sus"
               height="600"
@@ -70,5 +69,44 @@
       <a href="https://www.instagram.com/"><img src="../image/footer/pngtree-instagram-icon-png-image_6315974.png" alt="Instagram"></a>
     </div>
   </footer>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+$("#form").on("submit",function(e){
+e.preventDefault();
+if($("#form [name='your_name']").val() === '')
+{
+$("#form [name='your_name']").css("border","1px solid red");
+}
+else if ($("#form [name='your_email']").val() === '')
+{
+$("#form [name='your_email']").css("border","1px solid red");
+}
+else
+{
+$("#loading-img").css("display","block");
+var sendData = $( this ).serialize();
+$.ajax({
+type: "POST",
+url: "get_response.php",
+data: sendData,
+success: function(data){
+$("#loading-img").css("display","none");
+$(".response_msg").text(data);
+$(".response_msg").slideDown().fadeOut(3000);
+$("#form").find("input[type=text], input[type=email], textarea").val("");
+}
+});
+}
+});
+$("#form input").blur(function(){
+var checkValue = $(this).val();
+if(checkValue != '')
+{
+$(this).css("border","1px solid #eeeeee");
+}
+});
+});
+</script>
 </body>
 </html>
