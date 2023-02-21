@@ -19,35 +19,15 @@
       <section>
         <div class="title">Contact us</div>
         <div class="form">
-          <form name="contact" class="form-control" action="" method="post" id="form">
+          <form name="contact" class="form-control" action="submit.php" method="post" id="form">            
             <label for="input-name" class="form-label">Name</label>
-            <input
-              type="text"
-              name="name"
-              placeholder="Your name"
-              id="input-name"
-            />
+            <input type="text" name="name" placeholder="Your name" id="input-name" />
             <label for="input-email" class="form-label">Email</label>
-            <input
-              type="text"
-              name="email"
-              placeholder="Your email"
-              id="input-email"
-            />
+            <input type="text" name="email" placeholder="Your email" id="input-email" />
             <label for="input-phone" class="form-label">Phone</label>
-            <input
-              type="text"
-              name="phone"
-              placeholder="Your phone number"
-              id="input-phone"
-            />
-            <label for="input-question" class="form-label">Question</label>
-            <textarea
-              name="question"
-              placeholder="Enter your Question"
-              rows="10"
-              id="input-question"
-            ></textarea>
+            <input type="text" name="phone" placeholder="Your phone number" id="input-phone" />
+            <label for="input-comments" class="form-label">Comments</label>
+            <textarea name="comments" placeholder="Enter your comments" rows="10" id="input-comments"></textarea>
             <button type="submit" class="btn btn-primary" name="submit" value="Submit" id="submit_form">Submit</button>
             <div class="response_msg"></div>
             <iframe
@@ -69,44 +49,25 @@
       <a href="https://www.instagram.com/"><img src="../image/footer/pngtree-instagram-icon-png-image_6315974.png" alt="Instagram"></a>
     </div>
   </footer>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<script>
-$(document).ready(function(){
-$("#form").on("submit",function(e){
-e.preventDefault();
-if($("#form [name='your_name']").val() === '')
-{
-$("#form [name='your_name']").css("border","1px solid red");
-}
-else if ($("#form [name='your_email']").val() === '')
-{
-$("#form [name='your_email']").css("border","1px solid red");
-}
-else
-{
-$("#loading-img").css("display","block");
-var sendData = $( this ).serialize();
-$.ajax({
-type: "POST",
-url: "get_response.php",
-data: sendData,
-success: function(data){
-$("#loading-img").css("display","none");
-$(".response_msg").text(data);
-$(".response_msg").slideDown().fadeOut(3000);
-$("#form").find("input[type=text], input[type=email], textarea").val("");
-}
-});
-}
-});
-$("#form input").blur(function(){
-var checkValue = $(this).val();
-if(checkValue != '')
-{
-$(this).css("border","1px solid #eeeeee");
-}
-});
-});
-</script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    // Listen for form submission
+    $(document).ready(function() {
+      $('#form').on('submit', function(e) {
+        e.preventDefault(); // Prevent form from submitting normally
+        var form_data = $(this).serialize(); // Serialize form data
+
+        // Send AJAX request
+        $.ajax({
+          type: 'POST',
+          url: 'submit.php',
+          data: form_data,
+          success: function(response) {
+            $('.response_msg').html(response); // Update response message
+          }
+        });
+      });
+    });
+  </script>
 </body>
 </html>
