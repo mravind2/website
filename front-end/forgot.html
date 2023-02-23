@@ -6,26 +6,46 @@
   <meta name="viewport" content="width=device-width">
   <title>Reset Login</title>
   <link href="style.css" rel="stylesheet" type="text/css" />
+
+    <script>
+      function resetPassword() {
+        var email = document.getElementById("email").value;
+        var confirmEmail = document.getElementById("confirm-email").value;
+        var error = document.getElementById("error");
+        var success = document.getElementById("success");
+  
+        if (email !== confirmEmail) {
+          error.innerHTML = "Emails do not match!";
+          error.style.color = "red";
+          success.innerHTML = "";
+        } else {
+          success.innerHTML = "Email sent to " + email;
+          success.style.color = "green";
+          error.innerHTML = "";
+        }
+      }
+    </script>
+  
 </head>
 
 <body>
   <div class="login-box">
     <h1>Forgot Password</h1>
-    <form action="homepage.html">
-
+    <form>
       <div class="textbox">
         <i class="fas fa-envelope"></i>
-        <input type="email" placeholder="Email">
+        <input type="email" id="email" placeholder="Email">
       </div>
 
       <div class="textbox">
         <i class="fas fa-envelope"></i>
-        <input type="email" placeholder="Confirm Email">
+        <input type="email" id="confirm-email" placeholder="Confirm Email">
       </div> 
 
-      <input type="submit" class="btn" value="Reset Password">
+      <input type="button" class="btn" value="Reset Password" onclick="resetPassword()">
+      <div id="error"></div>
+      <div id="success"></div>
     </form>
   </div>
 </body>
-
 </html>
