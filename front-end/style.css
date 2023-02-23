@@ -189,3 +189,10 @@ footer {
   height: 40px;
   width: 40px;
 }
+
+.box {
+  border: 1px solid black; /* adds a black border to the box */
+  padding: 100px; /* adds some padding to the inside of the box */
+  max-width: 8000px; /* sets a maximum width for the box */
+  margin: 0 auto; /* centers the box horizontally */
+}
