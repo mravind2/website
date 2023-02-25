@@ -6,33 +6,78 @@
   <meta name="viewport" content="width=device-width">
   <title>Sign Up Page</title>
   <link href="style.css" rel="stylesheet" type="text/css" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      $('form').submit(function(event) {
+        event.preventDefault();
+        var username = $('#username').val();
+        var email = $('#email').val();
+        var password = $('#password').val();
+        var confirm_password = $('#confirm_password').val();
+  
+        // Check if fields are empty
+        if (username == "" || email == "" || password == "" || confirm_password == "") {
+          $('.response_msg').html("All fields must be filled out.");
+          return false;
+        }
+  
+        // Check if password and confirm password match
+        if (password != confirm_password) {
+          $('.response_msg').html("Passwords do not match.");
+          return false;
+        }
+  
+        // Check if email is valid
+        if (!/\S+@\S+\.\S+/.test(email)) {
+          $('.response_msg').html("Invalid email address.");
+          return false;
+        }
+  
+        // Submit the form data with AJAX
+        $.ajax({
+          type: 'POST',
+          url: 'signup.php',
+          data: $('form').serialize(),
+          success: function(response) {
+            if (response === "Sign up successful.") {
+              window.location.href = "login.html";
+            } else {
+              $('.response_msg').html(response);
+            }
+          }
+        });
+      });
+    });
+  </script>
 </head>
 
 <body>
   <div class="login-box">
     <h1>Sign Up</h1>
-    <form action="homepage.html">
+    <form action="signup.php" method="POST" onsubmit="return validateForm()">
       <div class="textbox">
         <i class="fas fa-user"></i>
-        <input type="text" placeholder="Username">
+        <input type="text" placeholder="Username" name="username" id="username">
       </div>
 
       <div class="textbox">
         <i class="fas fa-envelope"></i>
-        <input type="email" placeholder="Email">
+        <input type="email" placeholder="Email" name="email" id="email">
       </div>
 
       <div class="textbox">
         <i class="fas fa-lock"></i>
-        <input type="password" placeholder="Password">
+        <input type="password" placeholder="Password" name="password" id="password">
       </div>
 
       <div class="textbox">
         <i class="fas fa-lock"></i>
-        <input type="password" placeholder="Confirm Password">
+        <input type="password" placeholder="Confirm Password" name="confirm_password" id="confirm_password">
       </div>
 
       <input type="submit" class="btn" value="Sign Up">
+      <div class="response_msg"></div>
     </form>
   </div>
 </body>
