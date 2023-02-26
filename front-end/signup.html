@@ -4,100 +4,146 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width">
-  <title>Sign Up</title>
+  <title>Sign Up Page</title>
   <style>
-      h1 {
-      color: wheat;
-    }
+    h1 {
+    color: wheat;
+  }
 
-    body {
-      background-image: url("./images/login_background.jpeg");
-      background-size: cover;
-    }
+  body {
+    background-image: url("./images/login_background.jpeg");
+    background-size: cover;
+  }
 
-    .login-box {
-      background-color: #9a8e7e;
-      padding-top: 30px;
-      padding-bottom: 40px;
-      padding-left: 40px;
-      padding-right: 50px;
-      border-radius: 10px;
-      width: 300px;
-      margin: 0 auto;
-      margin-top: 100px;
-      text-align: center;
-    }
+  .login-box {
+    background-color: #9a8e7e;
+    padding-top: 30px;
+    padding-bottom: 40px;
+    padding-left: 40px;
+    padding-right: 50px;
+    border-radius: 10px;
+    width: 300px;
+    margin: 0 auto;
+    margin-top: 100px;
+    text-align: center;
+  }
 
-    .textbox {
-      position: relative;
-      margin: 20px 0;
-    }
+  .textbox {
+    position: relative;
+    margin: 20px 0;
+  }
 
-    .textbox i {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      left: 10px;
-      color: #fff;
-    }
+  .textbox i {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 10px;
+    color: #fff;
+  }
 
-    .textbox input {
-      width: 100%;
-      padding: 10px;
-      border: none;
-      background-color: #d3cfcf;
-      border-radius: 20px;
-      color: #000;
-      font-size: 16px;
-    }
+  .textbox input {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    background-color: #d3cfcf;
+    border-radius: 20px;
+    color: #000;
+    font-size: 16px;
+  }
 
-    .textbox input:focus {
-      outline: none;
-    }
+  .textbox input:focus {
+    outline: none;
+  }
 
 
-    .btn {
-      background-color: #723c24;
-      color: #fff;
-      border: none;
-      border-radius: 20px;
-      padding: 10px 20px;
-      margin: 10px 0;
-      cursor: pointer;
-      font-size: 16px;
-    }
+  .btn {
+    background-color: #723c24;
+    color: #fff;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 20px;
+    margin: 10px 0;
+    cursor: pointer;
+    font-size: 16px;
+  }
 
-    .btn:hover {
-      background-color: #431f0b;
-    }
-  </style>
+  .btn:hover {
+    background-color: #431f0b;
+  }
+</style>
+  <link href="style.css" rel="stylesheet" type="text/css" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      $('form').submit(function(event) {
+        event.preventDefault();
+        var username = $('#username').val();
+        var email = $('#email').val();
+        var password = $('#password').val();
+        var confirm_password = $('#confirm_password').val();
+  
+        // Check if fields are empty
+        if (username == "" || email == "" || password == "" || confirm_password == "") {
+          $('.response_msg').html("All fields must be filled out.");
+          return false;
+        }
+  
+        // Check if password and confirm password match
+        if (password != confirm_password) {
+          $('.response_msg').html("Passwords do not match.");
+          return false;
+        }
+  
+        // Check if email is valid
+        if (!/\S+@\S+\.\S+/.test(email)) {
+          $('.response_msg').html("Invalid email address.");
+          return false;
+        }
+  
+        // Submit the form data with AJAX
+        $.ajax({
+          type: 'POST',
+          url: 'signup.php',
+          data: $('form').serialize(),
+          success: function(response) {
+            if (response === "Sign up successful.") {
+              window.location.href = "login.html";
+            } else {
+              $('.response_msg').html(response);
+            }
+          }
+        });
+      });
+    });
+  </script>
 </head>
 
 <body>
   <div class="login-box">
     <h1>Sign Up</h1>
-    <form action="homepage.html">
+    <form action="signup.php" method="POST" onsubmit="return validateForm()">
       <div class="textbox">
         <i class="fas fa-user"></i>
-        <input type="text" placeholder="Username">
+        <input type="text" placeholder="Username" name="username" id="username">
       </div>
 
       <div class="textbox">
         <i class="fas fa-envelope"></i>
-        <input type="email" placeholder="Email">
+        <input type="email" placeholder="Email" name="email" id="email">
       </div>
 
       <div class="textbox">
         <i class="fas fa-lock"></i>
-        <input type="password" placeholder="Password">
+        <input type="password" placeholder="Password" name="password" id="password">
       </div>
 
       <div class="textbox">
         <i class="fas fa-lock"></i>
-        <input type="password" placeholder="Confirm Password">
+        <input type="password" placeholder="Confirm Password" name="confirm_password" id="confirm_password">
       </div>
 
       <input type="submit" class="btn" value="Sign Up">
+      <div class="response_msg"></div>
     </form>
   </div>
 </body>
