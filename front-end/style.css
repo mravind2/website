@@ -196,3 +196,45 @@ body {
     max-width: 8000px; /* sets a maximum width for the box */
     margin: 0 auto; /* centers the box horizontally */
   }
+
+  /* cartpage */
+  .products-container {
+    max-width: 650px;
+    justify-content: space-around;
+    margin: 0 auto;
+    margin-top: 50px;
+  }
+
+  .product-header {
+    width: 100%;
+    max-width: 650px;
+    display: flex;
+    justify-content: flex-start;
+    border-bottom: 4px solid lightgrey;
+    margin: 0 auto;
+  }
+
+  .product-title {
+    width: 45%;
+  }
+
+  .price {
+    width: 15%;
+    display: flex;
+    align-items: center;
+  }
+
+  .quantity {
+    width: 30%;
+    border-bottom: 1px solid lightgrey;
+    display: flex;
+    align-items: center;
+  }
+
+  .total {
+    width: 10%;
+    border-bottom: 1px solid lightgrey;
+    display: flex;
+    align-items: center;
+  }
+
