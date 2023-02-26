@@ -73,22 +73,43 @@
   </style>
 
     <script>
-      function resetPassword() {
-        var email = document.getElementById("email").value;
-        var confirmEmail = document.getElementById("confirm-email").value;
-        var error = document.getElementById("error");
-        var success = document.getElementById("success");
-  
-        if (email !== confirmEmail) {
-          error.innerHTML = "Emails do not match!";
-          error.style.color = "white";
-          success.innerHTML = "";
-        } else {
-          success.innerHTML = "Email sent to " + email;
-          success.style.color = "white";
-          error.innerHTML = "";
+        function resetPassword() {
+          var email = document.getElementById("email").value;
+          var confirmEmail = document.getElementById("confirm-email").value;
+          var error = document.getElementById("error");
+          var success = document.getElementById("success");
+
+          if (email !== confirmEmail) {
+            error.innerHTML = "Emails do not match!";
+            error.style.color = "white";
+            success.innerHTML = "";
+          } 
+          else {
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function() {
+              if (this.readyState == 4 && this.status == 200) {
+                var response = this.responseText;
+                  if (response == 'exists') {
+                  // Email exists in database
+                  success.innerHTML = "Email sent to " + email;
+                  success.style.color = "white";
+                  error.innerHTML = "";
+                  } else if (response == 'not_exists') {
+                      // Email does not exist in database
+                      error.innerHTML = "Email not found!";
+                      error.style.color = "white";
+                      success.innerHTML = "";
+                  } else {
+                      // Unexpected response
+                      console.error('Unexpected response: ' + response);
+                  }
+              }
+            };
+            xhr.open("POST", "check_email.php", true);
+            xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhr.send("email=" + email);
+          }
         }
-      }
     </script>
   
 </head>
@@ -96,7 +117,7 @@
 <body>
   <div class="login-box">
     <h1>Forgot Password</h1>
-    <form>
+    <form id="reset-form">
       <div class="textbox">
         <i class="fas fa-envelope"></i>
         <input type="email" id="email" placeholder="Email">
