@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Check out</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <style>
+    .box {
+      border: 1px solid black; /* adds a black border to the box */
+      padding: 100px; /* adds some padding to the inside of the box */
+      max-width: 8000px; /* sets a maximum width for the box */
+      margin: 0 auto; /* centers the box horizontally */
+    }
+
+		.cart ion-icon {
+      		vertical-align: bottom;
+      		font-size: 20px;
+      		padding-right: 5px;
+    	}
+
+    	.container{
+      		display: flex;
+      		justify-content: center;
+      		flex-wrap: wrap;
+      		margin-top: 50px;
+      		padding-bottom: 100px;
+    	}
+
+    	.products-container{
+      		max-width: 650px;
+      		justify-content: space-around;
+      		margin: 0 auto;
+      		margin-top: 50px;
+    	}
+
+    	.products-header{
+      		width: 100%;
+      		max-width: 650px;
+      		display: flex;
+      		justify-content: flex-start;
+      		border-bottom: 4px solid lightgrey;
+      		margin: 0 auto;
+    	}
+
+    	.product-title{
+      		width: 45%;
+    	}
+
+    	.price {
+      		width: 15%;
+      		border-bottom: 1px solid lightgrey;
+      		display: flex;
+      		align-items: center;
+    	}
+
+    	.quantity{
+      		width: 30%;
+      		border-bottom: 1px solid lightgrey;
+      		display: flex;
+      		align-items: center;
+    	}
+
+    	.total{
+      		width: 10%;
+      		border-bottom: 1px solid lightgrey;
+      		display: flex;
+      		align-items: center;
+    	}
+
+    	.total{
+      		width: 10%;
+      		border-bottom: 1px solid lightgrey;
+      		display: flex;
+      		align-items: center;
+    	}
+
+    	.product{
+      		width: 45%;
+          display: flex;
+          justify-content: space-around;
+          align-items: center;
+          padding: 10px 0;
+          border-bottom: 1px solid lightgray;
+    	}
+	</style>
+</head>
+
+<body>
+  <header>
+    <nav>
+      <ul>
+        <li><a href="homepage.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="https://main.d3ej7xs521nmu9.amplifyapp.com/">Logout</a></li>
+        <li class="cart"><a href="checkout.html">
+            <ion-icon name="basket"></ion-icon>Cart<span>0</span>
+        </a></li>
+      </ul>
+    </nav>
+  </header>
+
+    <div class="products-container">
+        <div class="product-header">
+        <h5 class="product-title">PRODUCT</h5>
+        <h5 class="product-price">PRICE</h5>
+        <h5 class="product-quantity">QUANTITY</h5>
+        <h5 class="product-total">TOTAL</h5>
+        </div>
+        <div class="products">
+
+        </div>
+
+
+
+
+
+
+
+      </div>
+
+      <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+      <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+      <script src="checkout.js"></script>
+</body>
+</html>
