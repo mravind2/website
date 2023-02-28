@@ -3,25 +3,25 @@ let carts = document.querySelectorAll('.add-cart');
 let products = [
     {
         name: 'Grey Tshirt',
-        tag: 'greythirt',
+        tag: 'grey-tshirt',
         price: 15,
         inCart: 0
     },
     {
         name: 'Grey Hoddie',
-        tag: 'greyhoddie',
+        tag: 'grey-hoodie',
         price: 20,
         inCart: 0
     },
     {
         name: 'Black Tshirt',
-        tag: 'blacktshirt',
+        tag: 'black-tshirt',
         price: 10,
         inCart: 0
     },
     {
         name: 'Black Hoddie',
-        tag: 'blackhoddie',
+        tag: 'black-hoodie',
         price: 25,
         inCart: 0
     },
@@ -62,18 +62,17 @@ function cartNumbers(product){
 }
 
 function setItems(product){
-    let cartItems = localStorage.getItem('productsIncart');
+    let cartItems = localStorage.getItem('productsInCart');
     cartItems = JSON.parse(cartItems);
 
     if(cartItems != null){
 
         if(cartItems[product.tag] != undefined) {
-            cartItems = {
-                ...cartItems,
-                [product.tag]: product
-            }
+            cartItems[product.tag].inCart += 1;
+        } else {
+            cartItems[product.tag] = product;
+            cartItems[product.tag].inCart = 1;
         }
-        cartItems[product.tag].inCart += 1;
     }
     else{
         product.inCart = 1;
@@ -83,6 +82,7 @@ function setItems(product){
     }
     localStorage.setItem("productsInCart", JSON.stringify(cartItems));
 }
+
 
 function totalCost(product){
     let cartCost = localStorage.getItem('totalCost');
@@ -113,7 +113,7 @@ function displayCart() {
                 <ion-icon name="close-circle"></ion-icon>
                 <img src="./images/${item.tag}.jpg">
                 <span>${item.name}</span>
-            <div class="price">${item.price}</div>
+            <div class="price">$${item.price}</div>
             <div class="quantity">
                 <ion-icon class="decrease"
                 name="arrowdropleft-circle"></ion-icon>
@@ -122,7 +122,7 @@ function displayCart() {
                 name="arrow-dropright-circle"></ion-icon>
             </div>
             <div class="total">
-                ${item.inCart} * item.price},00
+                $${item.inCart * item.price},00
             </div>
             `;
         });
