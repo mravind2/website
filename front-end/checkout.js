@@ -104,7 +104,9 @@ function displayCart() {
     cartItems = JSON.parse(cartItems);
     let productContainer = document.querySelector
     (".products-container");
+    let cartCost = localStorage.getItem('totalCost');
 
+    console.log(cartItems);
     if(cartItems && productContainer) {
         productContainer.innerHTML = '';
         Object.values(cartItems).map(item => {
@@ -142,3 +144,4 @@ function displayCart() {
 
 onLoadCartNumbers();
 displayCart();
+
